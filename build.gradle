@@ -1,0 +1,45 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        maven { url ctspclRepotory }
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+
+    group 'client2'
+    version '1.0.0-SNAPSHOT'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        maven { url ctspclRepotory }
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Dalston.SR3'
+        }
+        dependencies{
+            dependency 'org.projectlombok:lombok:1.16.18'
+
+        }
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
+
+    }
+
+}
